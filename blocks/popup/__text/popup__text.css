@@ -1,0 +1,48 @@
+.popup__text {
+  width: 358px;
+  height: 27px;
+  box-sizing: border-box;
+  margin: 54px 0 30px;
+  padding: 0 0 13.3px 0;
+  font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 1.21;
+  color: #000;
+  border: none;
+  border-bottom: 1px solid rgba(0, 0, 0, .2);
+}
+
+.popup__text:focus {
+  outline: none;
+}
+
+.popup__text:last-of-type {
+  margin-top: 0;
+  margin-bottom: 0;
+}
+
+@media screen and (max-width: 581px) {
+  .popup__text {
+    width: 90%;
+    height: 23px;
+    margin-top: 44px;
+    margin-bottom: 25px;
+  }
+}
+
+@media screen and (max-width: 455px) {
+  .popup__text {
+    font-size: 12px;
+    margin-top: 39px;
+    margin-bottom: 20px;
+  }
+}
+
+@media screen and (max-width: 400px) {
+  .popup__text {
+    margin-top: 30px;
+    margin-bottom: 17px;
+  }
+}

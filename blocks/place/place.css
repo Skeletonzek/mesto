@@ -1,0 +1,16 @@
+@import url(./__photo/place__photo.css);
+@import url(./__title/place__title.css);
+@import url(./__like/place__like.css);
+
+.place {
+  width: 282px;
+  height: 362px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: baseline;
+  justify-content: space-between;
+  background-color: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+}

@@ -1,0 +1,17 @@
+@import url(./__img/profile__img.css);
+@import url(./__add/profile__add.css);
+
+.profile {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  max-width: 882px;
+  margin: 40px auto 0;
+}
+
+@media screen and (max-width: 660px){
+  .profile {
+    flex-direction: column;
+    max-width: calc(100% - 38px);
+  }
+}
