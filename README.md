@@ -11,4 +11,4 @@
 
 **Ссылка на проект**
 
-[Mesto](https://http://skeletonzek.github.io/mesto/)
+[Mesto](https://skeletonzek.github.io/mesto/)
