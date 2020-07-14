@@ -17,7 +17,6 @@
   transform: scale(.8, .8);
 }
 
-
 .profile__add:hover {
   opacity: .6;
   cursor: pointer;
@@ -26,6 +25,7 @@
 
 @media screen and (max-width: 660px) {
   .profile__add {
+    background-size: 16px;
     width: 282px;
     margin: 36px 0 0 0;
   }

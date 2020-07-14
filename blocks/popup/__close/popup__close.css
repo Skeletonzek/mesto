@@ -26,6 +26,8 @@
 
 @media screen and (max-width: 581px) {
   .popup__close {
+    /*При уменьшении размера из CSS обрезались края и они становились "заостренными" потому что я не использовал "rotate"
+    поэтому я прибегнул к такому решению*/
     background-image: url(../../../images/close-icon-small.svg);
     width: 25.7px;
     height: 25.7px;

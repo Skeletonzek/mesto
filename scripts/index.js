@@ -1,33 +1,29 @@
-//Не уверен, что это правильный подход,
-//документация рекомендует использовать как можно меньше глобальных переменных,
-//жду ваш комментарий
+let popup = document.querySelector('.popup');
 let popupEdit = document.querySelector('.profile-info__change');
-let popupStatus = document.querySelector('.popup');
 let popupClose = document.querySelector('.popup__close');
-let profileInfo = document.querySelectorAll('.profile-info__name, .profile-info__status');
-let popupInfo = document.querySelectorAll('.popup__text');
-let popupSubmit = document.querySelector('.popup__submit')
+let profileName = document.querySelector('.profile-info__name');
+let profileStatus = document.querySelector('.profile-info__status');
+let popupName = document.querySelector('input[name="name"]');
+let popupStatus = document.querySelector('input[name="status"]');
 
-function popupOpen() {
-  popupStatus.style.display = 'block';
-  popupInfo[0].value = profileInfo[0].textContent;
-  popupInfo[1].value = profileInfo[1].textContent;
-}
-
-function popupExit() {
-  //Это решение мне показалось проще,
-  //потому что не надо создавать отдельный стиль-модификатор,
-  //скорее всего это не по БЭМ, если я прав, поправьте меня :)
-  popupStatus.style.display = 'none';
+function popupVision() {
+  if (!popup.classList.contains('popup_opened')) {
+    popup.classList.add('popup_opened');
+    popupName.value = profileName.textContent;
+    popupStatus.value = profileStatus.textContent;
+  }
+  else {
+    popup.classList.remove('popup_opened');
+  }
 }
 
 function popupSave(evt) {
   evt.preventDefault();
-  profileInfo[0].textContent = popupInfo[0].value;
-  profileInfo[1].textContent = popupInfo[1].value;
-  popupStatus.style.display = 'none';
+  profileName.textContent = popupName.value;
+  profileStatus.textContent = popupStatus.value;
+  popup.classList.remove('popup_opened');
 }
 
-popupEdit.addEventListener('click', popupOpen);
-popupClose.addEventListener('click', popupExit);
-popupStatus.addEventListener('submit', popupSave);
+popupEdit.addEventListener('click', popupVision);
+popupClose.addEventListener('click', popupVision);
+popup.addEventListener('submit', popupSave);
