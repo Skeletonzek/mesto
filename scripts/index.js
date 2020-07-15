@@ -21,7 +21,7 @@ function popupSave(evt) {
   evt.preventDefault();
   profileName.textContent = popupName.value;
   profileStatus.textContent = popupStatus.value;
-  popup.classList.remove('popup_opened');
+  popupVision();
 }
 
 popupEdit.addEventListener('click', popupVision);
