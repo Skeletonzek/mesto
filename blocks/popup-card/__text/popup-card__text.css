@@ -1,4 +1,4 @@
-.popup__text {
+.popup-card__text {
   width: 358px;
   box-sizing: border-box;
   margin: 54px 0 30px;
@@ -13,16 +13,16 @@
   border-bottom: 1px solid rgba(0, 0, 0, .2);
 }
 
-.popup__text:focus {
+.popup-card__text:focus {
   outline: none;
 }
 
-.popup__text:last-of-type {
+.popup-card__text:last-of-type {
   margin-top: 0;
   margin-bottom: 0;
 }
 
-.popup__text::placeholder {
+.popup-card__text::placeholder {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -31,7 +31,7 @@
   color: #C4C4C4;
 }
 
-.popup__text::-webkit-input-placeholder {
+.popup-card__text::-webkit-input-placeholder {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -40,7 +40,7 @@
   color: #C4C4C4;
 }
 
-.popup__text::-moz-placeholder {
+.popup-card__text::-moz-placeholder {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -49,7 +49,7 @@
   color: #C4C4C4;
 }
 
-.popup__text::-ms-input-placeholder {
+.popup-card__text::-ms-input-placeholder {
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
   font-weight: normal;
@@ -59,7 +59,7 @@
 }
 
 @media screen and (max-width: 581px) {
-  .popup__text {
+  .popup-card__text {
     width: 83.3%;
     margin-top: 44px;
     margin-bottom: 25px;
@@ -67,29 +67,29 @@
 }
 
 @media screen and (max-width: 455px) {
-  .popup__text {
+  .popup-card__text {
     font-size: 12px;
     line-height: 1.25;
     margin-top: 36px;
     margin-bottom: 20px;
     padding-bottom: 12px;
   }
-  .popup__text::placeholder {
+  .popup-card__text::placeholder {
     font-size: 12px;
     line-height: 1.25;
   }
   
-  .popup__text::-webkit-input-placeholder {
+  .popup-card__text::-webkit-input-placeholder {
     font-size: 12px;
     line-height: 1.25;
   }
   
-  .popup__text::-moz-placeholder {
+  .popup-card__text::-moz-placeholder {
     font-size: 12px;
     line-height: 1.25;
   }
   
-  .popup__text::-ms-input-placeholder {
+  .popup-card__text::-ms-input-placeholder {
     font-size: 12px;
     line-height: 1.25;
   }

@@ -1,4 +1,4 @@
-.popup__title {
+.popup-profile__title {
   margin: 34px 0 0 36px;
   padding: 0;
   align-self: flex-start;
@@ -11,13 +11,13 @@
 }
 
 @media screen and (max-width: 581px) {
-  .popup__title {
+  .popup-profile__title {
     margin: 30px 0 0 28px;
   }
 }
 
 @media screen and (max-width: 455px) {
-  .popup__title {
+  .popup-profile__title {
     font-size: 18px;
     line-height: 1.22;
     margin-left: 20px;

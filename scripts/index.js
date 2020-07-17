@@ -1,14 +1,18 @@
-const popup = document.querySelector('.popup');
-const popupEdit = document.querySelector('.profile-info__change');
+const popupProfile = document.querySelector('.popup-profile');
+const popupCard = document.querySelector('.popup-card');
+const popupProfileName = popupProfile.querySelector('input[name="name"]');
+const popupProfileStatus = popupProfile.querySelector('input[name="status"]');
+const popupCardName = popupCard.querySelector('input[name="name"]');
+const popupCardLink = popupCard.querySelector('input[name="link"]');
+const popupProfileClose = popupProfile.querySelector('.popup-profile__close');
+const popupCardClose = popupCard.querySelector('.popup-card__close');
+const profileEdit = document.querySelector('.profile-info__change');
 const picView = document.querySelector('.pic-view');
 const cardAdd = document.querySelector('.profile__add');
-const popupClose = document.querySelector('.popup__close');
 const picClose = document.querySelector('.pic-view__close');
 const profileName = document.querySelector('.profile-info__name');
 const profileStatus = document.querySelector('.profile-info__status');
-const popupName = document.querySelector('input[name="name"]');
-const popupStatus = document.querySelector('input[name="status"]');
-const popupTitle = document.querySelector('.popup__title');
+const placeTemplate = document.querySelector('#place-template').content
 const places = document.querySelector('.places');
 
 
@@ -44,7 +48,6 @@ initialCards.forEach(function (item){
 });
 
 function addCard (cardTitle, cardSrc) {
-  const placeTemplate = document.querySelector('#place-template').content
   const placeElement = placeTemplate.cloneNode(true);
 
   placeElement.querySelector('.place__title').textContent = cardTitle;
@@ -69,57 +72,49 @@ function addCard (cardTitle, cardSrc) {
   places.prepend(placeElement);
 }
 
-function popupType(evt) {
-  const popupSubmitButton = document.querySelector('.popup__submit');
-
-  if (evt.target === popupEdit) {   
-    popupSubmitButton.textContent = 'Сохранить';
-    popupTitle.textContent = 'Редактировать профиль';
-    popupName.placeholder = '';
-    popupStatus.placeholder = '';
-    popupName.value = profileName.textContent;
-    popupStatus.value = profileStatus.textContent;
+function popupProfileVision() {
+  if (!popupProfile.classList.contains('popup-profile_opened')) {
+    popupProfileName.value = profileName.textContent;
+    popupProfileStatus.value = profileStatus.textContent;
+    popupProfile.classList.add('popup-profile_opened');
   }
-
   else {
-    popupSubmitButton.textContent = 'Создать';
-    popupTitle.textContent = 'Новое место';
-    popupName.placeholder = 'Название';
-    popupStatus.placeholder = 'Ссылка на картинку';
-    popupName.value = '';
-    popupStatus.value = '';
+    popupProfile.classList.remove('popup-profile_opened');
   }
 }
 
-function popupVision(evt) {
-  if (!popup.classList.contains('popup_opened')) {
-    popupType(evt);
-    popup.classList.add('popup_opened');
+function popupCardVision() {
+  if (!popupCard.classList.contains('popup-card_opened')) {
+    popupCardName.value = '';
+    popupCardLink.value = '';
+    popupCard.classList.add('popup-card_opened');
   }
   else {
-    popup.classList.remove('popup_opened');
+    popupCard.classList.remove('popup-card_opened');
   }
 }
 
-function popupSave(evt) {
+function popupProfileSave(evt) {
   evt.preventDefault();
-
-  if (popupTitle.textContent === 'Редактировать профиль') {
-    profileName.textContent = popupName.value;
-    profileStatus.textContent = popupStatus.value;
-  }
-
-  else {
-    addCard(popupName.value, popupStatus.value);
-  }
-
-  popupVision();
+  
+  profileName.textContent = popupProfileName.value;
+  profileStatus.textContent = popupProfileStatus.value;
+  
+  popupProfileVision();
 }
 
-cardAdd.addEventListener('click', popupVision);
-popupEdit.addEventListener('click', popupVision);
-popupClose.addEventListener('click', popupVision);
+function popupCardSave(evt) {
+  evt.preventDefault();
+  addCard(popupCardName.value, popupCardLink.value); 
+  popupCardVision();
+}
+
+profileEdit.addEventListener('click', popupProfileVision);
+popupProfileClose.addEventListener('click', popupProfileVision);
+cardAdd.addEventListener('click', popupCardVision);
+popupCardClose.addEventListener('click', popupCardVision);
 picClose.addEventListener('click', function () {
   picView.classList.remove('pic-view_opened');
 });
-popup.addEventListener('submit', popupSave);
+popupProfile.addEventListener('submit', popupProfileSave);
+popupCard.addEventListener('submit', popupCardSave);
