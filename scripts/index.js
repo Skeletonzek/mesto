@@ -73,24 +73,24 @@ function addCard (cardTitle, cardSrc) {
 }
 
 function popupProfileVision() {
-  if (!popupProfile.classList.contains('popup-profile_opened')) {
+  if (!popupProfile.classList.contains('popup_opened')) {
     popupProfileName.value = profileName.textContent;
     popupProfileStatus.value = profileStatus.textContent;
-    popupProfile.classList.add('popup-profile_opened');
+    popupProfile.classList.add('popup_opened');
   }
   else {
-    popupProfile.classList.remove('popup-profile_opened');
+    popupProfile.classList.remove('popup_opened');
   }
 }
 
 function popupCardVision() {
-  if (!popupCard.classList.contains('popup-card_opened')) {
+  if (!popupCard.classList.contains('popup_opened')) {
     popupCardName.value = '';
     popupCardLink.value = '';
-    popupCard.classList.add('popup-card_opened');
+    popupCard.classList.add('popup_opened');
   }
   else {
-    popupCard.classList.remove('popup-card_opened');
+    popupCard.classList.remove('popup_opened');
   }
 }
 
