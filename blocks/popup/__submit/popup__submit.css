@@ -22,23 +22,17 @@
 
 @media screen and (max-width: 581px) {
   .popup__submit {
-    width: 90%;
+    width: 83.3%;
     height: 40px;
-    margin-top: 38px;
-    margin-bottom: 27px;
+    margin-top: 42px;
+    margin-bottom: 34px;
   } 
 }
 
 @media screen and (max-width: 455px) {
   .popup__submit {
-    font-size: 16px;
-  }
-}
-
-@media screen and (max-width: 400px) {
-  .popup__submit {
     font-size: 14px;
-    margin-top: 31px;
-    margin-bottom: 20px;
+    margin-top: 36px;
+    margin-bottom: 30px;
   }
 }

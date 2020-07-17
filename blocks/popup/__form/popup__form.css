@@ -14,8 +14,8 @@
 
 @media screen and (max-width: 581px) {
   .popup__form {
-    width: 70%;
-    left: 15%;
+    width: 75%;
+    left: 12.5%;
     transform: translate(0, -50%);
   } 
 }
