@@ -2,7 +2,11 @@
 @import url(./__form/popup__form.css);
 @import url(./__title/popup__title.css);
 @import url(./__text/popup__text.css);
+@import url(./__text/_type/popup__text_type_error.css);
 @import url(./__submit/popup__submit.css);
+@import url(./__submit/_inactive/popup__submit_inactive.css);
+@import url(./__error/popup__error.css);
+@import url(./__error/_visible/popup__error_visible.css);
 
 .popup {
   display: block;
