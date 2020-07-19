@@ -45,7 +45,9 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-
+/*Прочитал ваш комментарий, почитаю подробнее на предстоящей неделе каникул, просто сейчас жесткий дедлайн
+Насчет уместных комментарий в коде - дико извиняюсь сильно торопился и совсем о них позабыл, в дальнейшем
+буду вырабатывать у себя привычку всегда их оставлять*/
 initialCards.forEach(function (item){
   addCard(item.name, item.link);
 });
@@ -107,6 +109,7 @@ function closePopupProfile(evt) {
 }
 
 function openPopupCard() {
+  popupCardSubmit.classList.add('popup__submit_inactive');
   const errorMessage = popupCard.querySelectorAll('.popup__error');
   errorMessage.forEach(function(item){
     item.textContent = '';
