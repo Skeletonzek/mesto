@@ -14,10 +14,6 @@ const cardAdd = document.querySelector('.profile__add');
 const picClose = document.querySelector('.pic-view__close');
 const profileName = document.querySelector('.profile-info__name');
 const profileStatus = document.querySelector('.profile-info__status');
-const placeTemplate = document.querySelector('#place-template').content
-const places = document.querySelector('.places');
-
-
 
 const initialCards = [
   {
@@ -45,11 +41,28 @@ const initialCards = [
       link: 'https://pictures.s3.yandex.net/frontend-developer/cards-compressed/baikal.jpg'
   }
 ];
-/*Прочитал ваш комментарий, почитаю подробнее на предстоящей неделе каникул, просто сейчас жесткий дедлайн
-Насчет уместных комментарий в коде - дико извиняюсь сильно торопился и совсем о них позабыл, в дальнейшем
-буду вырабатывать у себя привычку всегда их оставлять*/
+
+import Card from './Card.js';
+import FormValidator from './FormValidator.js';
+
+const popupAttribute = {
+  inputSelector: '.popup__text',
+  submitButtonSelector: '.popup__submit',
+  inactiveButtonClass: 'popup__submit_inactive',
+  inputErrorClass: 'popup__text_type_error',
+  errorClass: 'popup__error_visible'
+};
+
+const popupTypes = ['.popup-profile', '.popup-card'];
+
+popupTypes.forEach(function (item) {
+  const valid = new FormValidator(popupAttribute, item);
+  valid.enableValidation();
+});
+
 initialCards.forEach(function (item){
-  addCard(item.name, item.link);
+  const card = new Card(item, '#place-template');
+  document.querySelector('.places').prepend(card.generateCard());
 });
 
 function closeByEsc(evt) {
@@ -59,32 +72,6 @@ function closeByEsc(evt) {
     picView.classList.remove('pic-view_opened');
     document.removeEventListener('keydown', closeByEsc);
   }
-}
-
-function addCard(cardTitle, cardSrc) {
-  const placeElement = placeTemplate.cloneNode(true);
-
-  placeElement.querySelector('.place__title').textContent = cardTitle;
-  placeElement.querySelector('.place__photo').alt = cardTitle;
-  placeElement.querySelector('.place__photo').src = cardSrc;
-
-  placeElement.querySelector('.place__bin').addEventListener('click', function (evt) {
-    evt.target.closest('.place').remove();
-  });
-
-  placeElement.querySelector('.place__like').addEventListener('click', function (evt) {
-    evt.target.classList.toggle('place__like_active');
-  });
-
-  placeElement.querySelector('.place__photo').addEventListener('click', function () {
-    picView.querySelector('.pic-view__img').src = cardSrc;
-    picView.querySelector('.pic-view__img').alt = cardTitle;
-    picView.querySelector('.pic-view__title').textContent = cardTitle;
-    picView.classList.add('pic-view_opened');
-    document.addEventListener('keydown', closeByEsc);
-  });
-
-  places.prepend(placeElement);
 }
 
 function openPopupProfile() {
@@ -137,7 +124,11 @@ function popupProfileSave(evt) {
 
 function popupCardSave(evt) {
   evt.preventDefault();
-  addCard(popupCardName.value, popupCardLink.value); 
+  const card = new Card({
+    name: popupCardName.value,
+    link: popupCardLink.value
+  }, '#place-template');
+  document.querySelector('.places').prepend(card.generateCard());
 }
 
 profileEdit.addEventListener('click', openPopupProfile);
@@ -153,6 +144,13 @@ picView.addEventListener('click', function(evt){
 
 popupProfile.addEventListener('keydown', function (evt) {
   if (evt.key === 'Enter' && popupProfileSubmit.classList.contains('popup__submit_inactive')) {
+  evt.preventDefault();
+  }
+  
+});
+
+popupProfile.addEventListener('keydown', function (evt) {
+  if (evt.key === ' ') {
   evt.preventDefault();
   }
   
