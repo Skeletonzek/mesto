@@ -6,10 +6,12 @@ export default class FormValidator {
     this._inputErrorClass = data.inputErrorClass;
     this._errorClass = data.errorClass;
     this._formType = form;
+    this._popup = document.querySelector(this._formType);
   }
 
   enableValidation() {
-    this._popup = document.querySelector(this._formType);
+    /*Мы ведь устанавливаем кнопкам .disabled = true, при этом событие submit разве будет срабатывать?
+    Просто не совсем понял зачем здесь нужно перехватывать отправку.*/
     this._setEventListeners();
   }
 
@@ -20,7 +22,7 @@ export default class FormValidator {
     this._inputList.forEach((inputElement) => {
       inputElement.addEventListener('input', () => {
         this._checkInputValidity(inputElement);
-        this._toggleButtonState(inputElement);
+        this._toggleButtonState();
       });
     });
   }
@@ -56,9 +58,11 @@ export default class FormValidator {
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
       this._buttonElement.classList.add(this._inactiveButtonClass);
+      this._buttonElement.disabled = true;
     }
     else {
       this._buttonElement.classList.remove(this._inactiveButtonClass);
+      this._buttonElement.disabled = false;
     }
   }
 

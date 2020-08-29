@@ -1,3 +1,5 @@
+import closeByEsc from './utils.js';
+
 export default class Card {
   constructor (data, selector) {
     this._name = data.name;
@@ -8,9 +10,10 @@ export default class Card {
   generateCard() {
     this._element = this._getTemplate();
     this._setEventListeners();
-    
-    this._element.querySelector('.place__photo').src = this._link;
-    this._element.querySelector('.place__photo').alt = this._name;
+
+    const cardPhoto = this._element.querySelector('.place__photo');
+    cardPhoto.src = this._link;
+    cardPhoto.alt = this._name;
     this._element.querySelector('.place__title').textContent = this._name;
 
     return this._element;
@@ -37,6 +40,7 @@ export default class Card {
 
   _removeCard() {
     this._element.remove();
+    this._element = null;
   }
 
   _likeCard() {
@@ -45,8 +49,9 @@ export default class Card {
 
   _overviewCard() {
     const picView = document.querySelector('.pic-view');
-    picView.querySelector('.pic-view__img').src = this._link;
-    picView.querySelector('.pic-view__img').alt = this._name;
+    const picViewImg = picView.querySelector('.pic-view__img');
+    picViewImg.src = this._link;
+    picViewImg.alt = this._name;
     picView.querySelector('.pic-view__title').textContent = this._name;
     picView.classList.add('pic-view_opened');
     document.addEventListener('keydown', closeByEsc);
