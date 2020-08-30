@@ -10,8 +10,6 @@ export default class FormValidator {
   }
 
   enableValidation() {
-    /*Мы ведь устанавливаем кнопкам .disabled = true, при этом событие submit разве будет срабатывать?
-    Просто не совсем понял зачем здесь нужно перехватывать отправку.*/
     this._setEventListeners();
   }
 
@@ -66,4 +64,10 @@ export default class FormValidator {
     }
   }
 
+  resetInputError() {
+    this._toggleButtonState();
+    this._inputList.forEach((inputElement) => {
+      this._hideInputError(inputElement);
+    });
+  }
 }

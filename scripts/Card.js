@@ -1,4 +1,4 @@
-import closeByEsc from './utils.js';
+import { openModalWindow } from './utils.js';
 
 export default class Card {
   constructor (data, selector) {
@@ -48,12 +48,11 @@ export default class Card {
   }
 
   _overviewCard() {
-    const picView = document.querySelector('.pic-view');
-    const picViewImg = picView.querySelector('.pic-view__img');
-    picViewImg.src = this._link;
-    picViewImg.alt = this._name;
-    picView.querySelector('.pic-view__title').textContent = this._name;
-    picView.classList.add('pic-view_opened');
-    document.addEventListener('keydown', closeByEsc);
+    const popupPic = document.querySelector('.popup-pic');
+    const popupPicImg = popupPic.querySelector('.popup-pic__img');
+    popupPicImg.src = this._link;
+    popupPicImg.alt = this._name;
+    popupPic.querySelector('.popup-pic__title').textContent = this._name;
+    openModalWindow(popupPic);
   }
 }
