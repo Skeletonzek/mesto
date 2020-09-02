@@ -1,10 +1,9 @@
-import { openModalWindow } from './utils.js';
-
 export default class Card {
-  constructor (data, selector) {
+  constructor (data, selector, handleCardClick) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
+    this._cardClick = handleCardClick;
   }
 
   generateCard() {
@@ -34,7 +33,7 @@ export default class Card {
     });
 
     this._element.querySelector('.place__photo').addEventListener('click', () => {
-      this._overviewCard();
+      this._cardClick();
     });
   }
 
@@ -45,14 +44,5 @@ export default class Card {
 
   _likeCard() {
     this._element.querySelector('.place__like').classList.toggle('place__like_active');
-  }
-
-  _overviewCard() {
-    const popupPic = document.querySelector('.popup-pic');
-    const popupPicImg = popupPic.querySelector('.popup-pic__img');
-    popupPicImg.src = this._link;
-    popupPicImg.alt = this._name;
-    popupPic.querySelector('.popup-pic__title').textContent = this._name;
-    openModalWindow(popupPic);
   }
 }
