@@ -33,7 +33,7 @@ export default class Card {
     });
 
     this._element.querySelector('.place__photo').addEventListener('click', () => {
-      this._cardClick();
+      this._cardClick(this._name, this._link);
     });
   }
 

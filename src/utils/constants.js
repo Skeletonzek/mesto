@@ -25,12 +25,6 @@ export const initialCards = [
   }
 ];
 
-export const popupProfile = document.querySelector('.popup-profile');
-export const popupProfileName = popupProfile.querySelector('input[name="name"]');
-export const popupProfileStatus = popupProfile.querySelector('input[name="status"]');
-export const profileEdit = document.querySelector('.profile-info__change');
-export const cardAdd = document.querySelector('.profile__add');
-
 export const popupAttribute = {
   inputSelector: '.popup__text',
   submitButtonSelector: '.popup__submit',

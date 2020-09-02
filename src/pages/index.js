@@ -1,18 +1,29 @@
+import './index.css';
 import Card from '../components/Card.js';
 import FormValidator from '../components/FormValidator.js';
 import Section from '../components/Section.js';
-import {initialCards, popupProfile, popupProfileName, popupProfileStatus, profileEdit, cardAdd, popupAttribute} from '../utils/constants.js';
+import {initialCards, popupAttribute} from '../utils/constants.js';
 import UserInfo from '../components/UserInfo.js';
 import PopupWithImage from '../components/PopupWithImage.js';
 import PopupWithForm from '../components/popupWithForm.js';
 
+const popupProfile = document.querySelector('.popup-profile');
+const popupProfileName = popupProfile.querySelector('input[name="name"]');
+const popupProfileStatus = popupProfile.querySelector('input[name="status"]');
+const profileEdit = document.querySelector('.profile-info__change');
+const cardAdd = document.querySelector('.profile__add');
+
+function cardCreate(data) {
+  const cardElement = new Card(data, '#place-template', (name, link) => {
+    picture.open(name, link);
+  });
+  card.addItem(cardElement.generateCard());
+}
+
 const card = new Section({
   items: initialCards, 
   renderer: (item) => {
-    const cardElement = new Card(item, '#place-template', () => {
-      picture.open(cardElement);
-    });
-    card.addItem(cardElement.generateCard());
+    cardCreate(item);
   }
 }, '.places');
 
@@ -25,16 +36,13 @@ validProfile.enableValidation();
 
 const info = new UserInfo({nameSelector: '.profile-info__name', statusSelector: '.profile-info__status'});
 const picture = new PopupWithImage('.popup-pic');
-const profile = new PopupWithForm('.popup-profile', (evt) => {
+const profile = new PopupWithForm('.popup-profile', (evt, data) => {
   evt.preventDefault();
-  info.setUserInfo(profile);  
+  info.setUserInfo(data);
 });
-const places = new PopupWithForm('.popup-card', (evt) => {
+const places = new PopupWithForm('.popup-card', (evt, data) => {
   evt.preventDefault();
-  const cardElement = new Card({name: places["0"], link: places["1"]}, '#place-template', () => {
-    picture.open(cardElement);
-  });
-  card.addItem(cardElement.generateCard());
+  cardCreate(data);
 });
 
 picture.setEventListeners();
@@ -43,8 +51,9 @@ profile.setEventListeners();
 
 
 function openPopupProfile() {
-  popupProfileName.value = info.getUserInfo().name;
-  popupProfileStatus.value = info.getUserInfo().status;
+  const params = info.getUserInfo();
+  popupProfileName.value = params.name;
+  popupProfileStatus.value = params.status;
   validProfile.resetInputError();
   profile.open();
 }
@@ -56,11 +65,3 @@ function openPopupCard() {
 
 profileEdit.addEventListener('click', openPopupProfile);
 cardAdd.addEventListener('click', openPopupCard);
-
-popupProfile.addEventListener('keydown', function (evt) {
-  if (evt.key === ' ') {
-  evt.preventDefault();
-  }  
-});
-
-import '../../pages/index.css';
