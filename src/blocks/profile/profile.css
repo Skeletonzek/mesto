@@ -1,5 +1,6 @@
 @import url(./__img/profile__img.css);
 @import url(./__add/profile__add.css);
+@import url(./__img-hover/profile__img-hover.css);
 
 .profile {
   display: flex;

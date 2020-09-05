@@ -1,21 +1,5 @@
 .place__like {
-  width: 21px;
-  height: 19px;
-  margin: 31px 16.24px 29.87px 0;
-  padding: 0;
-  background-image: url(../../../images/like.svg);
-  background-position: center;
-  background-color: transparent;
-  border: none;
-  outline: none;
-}
-
-.place__like:active {
-  transform: scale(1.2, 1.2);
-}
-
-.place__like:hover {
-  opacity: .6;
-  cursor: pointer;
-  transition: opacity .5s linear;
+  display: flex;
+  flex-direction: column;
+  margin: 21px 21px 25px 0;
 }

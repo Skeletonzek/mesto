@@ -14,7 +14,7 @@
       <h2 class="popup__title popup-profile__title">Редактировать профиль</h2>
       <input class="popup__text popup-profile__text" id="name-input" type="text" name="name" minlength="2" maxlength="40" required>
       <span class="popup__error" id="name-input-error"></span>
-      <input class="popup__text popup-profile__text" id="status-input" type="text" name="status" minlength="2" maxlength="200" required>
+      <input class="popup__text popup-profile__text" id="status-input" type="text" name="about" minlength="2" maxlength="200" required>
       <span class="popup__error" id="status-input-error"></span>
       <button class="popup__submit popup-profile__submit" type="submit">Сохранить</button>
     </form>
@@ -30,19 +30,37 @@
       <button class="popup__submit popup-card__submit" type="submit">Создать</button>
     </form>
   </section>
+  <section class="popup popup-confirm">
+    <form class="popup__form popup-confirm__form" name="info" novalidate>
+      <button class="popup__close popup-confirm__close" type="button"></button>
+      <h2 class="popup__title popup-confirm__title">Вы уверены?</h2>
+      <button class="popup__submit popup-confirm__submit" type="submit">Да</button>
+    </form>
+  </section>
+  <section class="popup popup-avatar">
+    <form class="popup__form popup-avatar__form" name="info" novalidate>
+      <button class="popup__close popup-avatar__close" type="button"></button>
+      <h2 class="popup__title popup-avatar__title">Обновить аватар</h2>
+      <input class="popup__text popup-avatar__text" id="link-input" type="url" name="avatar" placeholder="Ссылка на картинку" required>
+      <span class="popup__error" id="link-input-error"></span>
+      <button class="popup__submit popup-avatar__submit" type="submit">Сохранить</button>
+    </form>
+  </section>
   <section class="popup popup-pic">
     <figure class="popup-pic__figure">
       <button class="popup__close popup-pic__close" type="button"></button>
       <img class="popup-pic__img" alt="">
       <figcaption class="popup-pic__title"></figcaption>
     </figure>
-  </section>
+  </section>  
   <header class="header">
     <img class="header__logo" src="./images/mesto.svg" alt="Логотип">
   </header>
   <main class="content">
     <section class="profile">
-      <img class="profile__img" src="./images/profile-img.jpg" alt="Аватар">
+      <button class="profile__img-hover">
+        <img class="profile__img" src="./images/profile-img.jpg" alt="Аватар">
+      </button>
       <div class="profile-info">
         <h1 class="profile-info__name">Жак-Ив Кусто</h1>
         <button class="profile-info__change" type="button"></button>
@@ -60,10 +78,13 @@
 </div>
 <template id="place-template">
   <article class="place">
-    <button class="place__bin" type="button"></button>
+    <button class="place__bin place__bin_hidden" type="button"></button>
     <img class="place__photo" alt="">
     <h2 class="place__title"></h2>
-    <button class="place__like" type="button"></button>
+    <div class="place__like">
+      <button class="place__like-button" type="button"></button>
+      <span class="place__like-count"></span>
+    </div>
   </article>
 </template>
 </body>

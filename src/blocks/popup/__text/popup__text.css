@@ -1,7 +1,7 @@
 .popup__text {
   width: 358px;
   box-sizing: border-box;
-  margin: 54px 0 5px;
+  margin-bottom: 5px;
   padding: 0 0 13.3px 0;
   font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
   font-style: normal;
@@ -15,10 +15,6 @@
 
 .popup__text:focus {
   outline: none;
-}
-
-.popup__text:last-of-type {
-  margin-top: 0;
 }
 
 .popup__text::placeholder {
@@ -60,7 +56,6 @@
 @media screen and (max-width: 581px) {
   .popup__text {
     width: 83.3%;
-    margin-top: 44px;
   }
 }
 
@@ -68,7 +63,6 @@
   .popup__text {
     font-size: 12px;
     line-height: 1.25;
-    margin-top: 36px;
     padding-bottom: 12px;
   }
   .popup__text::placeholder {
