@@ -11,21 +11,26 @@ import PopupConfirm from '../components/PopupConfirm.js';
 
 
 const popupProfile = document.querySelector('.popup-profile');
+console.log(popupProfile);
 const popupProfileName = popupProfile.querySelector('input[name="name"]');
 const popupProfileStatus = popupProfile.querySelector('input[name="about"]');
 const profileEdit = document.querySelector('.profile-info__change');
 const cardAdd = document.querySelector('.profile__add');
 const avatarChange = document.querySelector('.profile__img-hover');
 
-function cardCreate(data, id) {
-  const cardElement = new Card(data, '#place-template', (name, link) => {
-    picture.open(name, link);
-  }, (id, removeCard) => {    
-    confirm.open(id, removeCard);
-  }, (id) => {
+function cardCreate(data) {
+  const cardElement = new Card(data, '#place-template', {
+    handleCardClick: (name, link) => {
+      picture.open(name, link);
+    }, 
+    handleBinClick: (id, removeCard) => {    
+      confirm.open(id, removeCard);
+    }, 
+    handleLikeClick: (id) => {
     if (!cardElement.isLiked) {
       api.likeCard(id)
         .then((res) => {
+          cardElement.isLiked = !cardElement.isLiked;
           cardElement.likeCount(res.likes);
         })
         .catch((err) => {
@@ -35,40 +40,36 @@ function cardCreate(data, id) {
     else {
       api.dislikeCard(id)
         .then((res) => {
+          cardElement.isLiked = !cardElement.isLiked;
           cardElement.likeCount(res.likes);
         })
         .catch((err) => {
           console.log(err);
         })
     }
+  }
   }); 
 
   const isLiked = data.likes.some((item) => {
-    return item._id === id;
+    return item._id === info._id;
   })
 
   if (isLiked) {
-    cardElement.isLiked = true;
-  
+    cardElement.isLiked = true;  
   }
 
-  if (data.owner._id === id) {
+  if (data.owner._id === info._id) {
     cardElement.mine = true;
   }  
  
-  return cardElement.generateCard();
+  card.addItem(cardElement.generateCard());
 }
 
-function cardLoad(data, id) {
-  console.log(data);
-  const card = new Section({
-    items: data, 
-    renderer: (item) => {
-      card.addItem(cardCreate(item, id));
-    }
-  }, '.places');
-  card.renderItems();
-}
+const card = new Section({ 
+  renderer: (item) => {
+    cardCreate(item);
+  }
+}, '.places');
 
 const validCard = new FormValidator(popupAttribute, '.popup-card');
 const validProfile = new FormValidator(popupAttribute, '.popup-profile');
@@ -80,59 +81,74 @@ validProfile.enableValidation();
 
 const info = new UserInfo({nameSelector: '.profile-info__name', statusSelector: '.profile-info__status', avatarSelector: '.profile__img'});
 const picture = new PopupWithImage('.popup-pic');
-const profile = new PopupWithForm('.popup-profile', (evt, data) => {
-  evt.preventDefault();
-  api.sendUserInfo(data)
-  .then((res) => {
-    info.setUserInfo(res);
-  })
-  .catch((err) => {
-    console.log(err);
-  })
-  .finally(() => {
-    document.querySelector('.popup-profile__submit').textContent = "Сохранить";  
-  });
-  
+const profile = new PopupWithForm('.popup-profile', {
+  submit: (evt, data) => {
+    evt.preventDefault();
+    api.sendUserInfo(data)
+      .then((res) => {
+        profile.close();
+        info.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        document.querySelector('.popup-profile__submit').textContent = "Сохранить";  
+      });
+  }
 });
 
-const avatar = new PopupWithForm('.popup-avatar', (evt, data) => {
-  evt.preventDefault();
-  console.log(data);
-  api.changeAvatar(data)
-    .then((res) => {
-      info.setUserInfo(res);
-    })
-    .catch((err) => {
-      console.log(err);
-    }).finally(() => {
-      document.querySelector('.popup-avatar__submit').textContent = "Сохранить";  
-    });;
-})
+const avatar = new PopupWithForm('.popup-avatar', {
+  submit: (evt, data) => {
+    evt.preventDefault();
+    api.changeAvatar(data)
+      .then((res) => {
+        avatar.close();
+        info.setUserInfo(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
+        document.querySelector('.popup-avatar__submit').textContent = "Сохранить";  
+      });
+  }
+});
 
-const places = new PopupWithForm('.popup-card', (evt, data) => {
-  evt.preventDefault();
-  api.postNewCard(data)
-    .then((res) => {
-      cardLoad([res], info._id);
-    })
-    .catch((err) => {
-      console.log(err);
-    }).finally(() => {
+const places = new PopupWithForm('.popup-card', {
+  submit: (evt, data) => {
+    evt.preventDefault();
+    api.postNewCard(data)
+      .then((res) => {
+        places.close();
+        cardCreate(res);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+      .finally(() => {
       document.querySelector('.popup-card__submit').textContent = "Создать";  
-    });;
+    });
+  }
 });
 
-const confirm = new PopupConfirm('.popup-confirm', (evt, id, removeCard) => {
-  evt.preventDefault();
-  api.deleteCard(id)
-    .catch((err) => {
-      console.log(err)
-    }).finally(() => {
-      document.querySelector('.popup-confirm__submit').textContent = "Да";  
-    });;
-  removeCard.remove();
-  removeCard = null;    
-})
+const confirm = new PopupConfirm('.popup-confirm', {
+  submit: (evt, id, removeCard) => {
+    evt.preventDefault();
+    api.deleteCard(id)
+      .then(() => {
+        confirm.close();
+        removeCard.remove();
+        removeCard = null;
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+      .finally(() => {
+        document.querySelector('.popup-confirm__submit').textContent = "Да";  
+      });    
+  }
+});
 
 avatar.setEventListeners();
 confirm.setEventListeners();
@@ -170,18 +186,17 @@ const api = new Api({
   }
 });
 
-api.getInitialCards()
+api.getUserInfo()
   .then((res) => {
-    cardLoad(res, info._id);
+    info.setUserInfo(res);
   })
   .catch((err) => {
     console.log(err);
   });
 
-api.getUserInfo()
+  api.getInitialCards()
   .then((res) => {
-    info.setUserInfo(res);
-    console.log(info._id);
+    card.renderItems(res);
   })
   .catch((err) => {
     console.log(err);

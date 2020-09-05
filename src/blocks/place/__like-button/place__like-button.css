@@ -10,11 +10,11 @@
   outline: none;
 }
 
-.place__like:active {
+.place__like-button:active {
   transform: scale(1.2, 1.2);
 }
 
-.place__like:hover {
+.place__like-button:hover {
   opacity: .6;
   cursor: pointer;
   transition: opacity .5s linear;

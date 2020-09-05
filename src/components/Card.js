@@ -1,5 +1,5 @@
 export default class Card {
-  constructor (data, selector, handleCardClick, handleBinClick, handleLikeClick) {
+  constructor (data, selector, {handleCardClick, handleBinClick, handleLikeClick}) {
     this._name = data.name;
     this._link = data.link;
     this._selector = selector;
@@ -16,10 +16,7 @@ export default class Card {
     this._element = this._getTemplate();
     this._setEventListeners();
     this._deleteCard();
-    
-   
-    
-
+  
     const cardPhoto = this._element.querySelector('.place__photo');
     cardPhoto.src = this._link;
     cardPhoto.alt = this._name;
@@ -40,7 +37,6 @@ export default class Card {
 
   _setEventListeners() {    
     this._element.querySelector('.place__like-button').addEventListener('click', () => {
-      
       this._likeClick(this._id);
       this._likeCard();
     });
