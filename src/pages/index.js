@@ -11,7 +11,6 @@ import PopupConfirm from '../components/PopupConfirm.js';
 
 
 const popupProfile = document.querySelector('.popup-profile');
-console.log(popupProfile);
 const popupProfileName = popupProfile.querySelector('input[name="name"]');
 const popupProfileStatus = popupProfile.querySelector('input[name="about"]');
 const profileEdit = document.querySelector('.profile-info__change');
@@ -62,10 +61,10 @@ function cardCreate(data) {
     cardElement.mine = true;
   }  
  
-  card.addItem(cardElement.generateCard());
+  cardsContainer.addItem(cardElement.generateCard());
 }
 
-const card = new Section({ 
+const cardsContainer = new Section({ 
   renderer: (item) => {
     cardCreate(item);
   }
@@ -86,8 +85,8 @@ const profile = new PopupWithForm('.popup-profile', {
     evt.preventDefault();
     api.sendUserInfo(data)
       .then((res) => {
-        profile.close();
         info.setUserInfo(res);
+        profile.close();
       })
       .catch((err) => {
         console.log(err);
@@ -103,8 +102,8 @@ const avatar = new PopupWithForm('.popup-avatar', {
     evt.preventDefault();
     api.changeAvatar(data)
       .then((res) => {
-        avatar.close();
         info.setUserInfo(res);
+        avatar.close();
       })
       .catch((err) => {
         console.log(err);
@@ -120,8 +119,9 @@ const places = new PopupWithForm('.popup-card', {
     evt.preventDefault();
     api.postNewCard(data)
       .then((res) => {
-        places.close();
+        cardsContainer.renderType = "prepend";
         cardCreate(res);
+        places.close();
       })
       .catch((err) => {
         console.log(err);
@@ -137,9 +137,9 @@ const confirm = new PopupConfirm('.popup-confirm', {
     evt.preventDefault();
     api.deleteCard(id)
       .then(() => {
-        confirm.close();
         removeCard.remove();
         removeCard = null;
+        confirm.close();
       })
       .catch((err) => {
         console.log(err)
@@ -194,9 +194,10 @@ api.getUserInfo()
     console.log(err);
   });
 
-  api.getInitialCards()
+api.getInitialCards()
   .then((res) => {
-    card.renderItems(res);
+    cardsContainer.renderType = "append";
+    cardsContainer.renderItems(res);
   })
   .catch((err) => {
     console.log(err);
